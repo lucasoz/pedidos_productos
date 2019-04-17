@@ -4,8 +4,11 @@
   "description": "Plataforma centralizada de pedidos y repartos de productos",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \" npm run server\" \" npm run client\""
   },
   "author": "Lucas Esteban Muñoz Montes",
   "license": "ISC",
