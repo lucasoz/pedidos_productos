@@ -17,5 +17,13 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.11"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasoz/pedidos_productos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lucasoz/pedidos_productos/issues"
+  },
+  "homepage": "https://github.com/lucasoz/pedidos_productos#readme"
 }
