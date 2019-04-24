@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const UserSchema = new Schema({
-    name: {
+    nombre: {
         type: String,
         required: true
     },
@@ -11,6 +11,15 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true
+    },
+    telefono:{
+        type: Number,
+        required: true,
+    },
+    tipo: {
+        type: String,
+        required: true,
+        enum: {values: ['vendedor', 'repartidor']}
     },
     password: {
         type: String,

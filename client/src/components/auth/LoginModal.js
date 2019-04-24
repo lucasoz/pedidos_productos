@@ -82,7 +82,7 @@ class LoginModal extends Component {
         return(
             <div>
                 <NavLink onClick={this.toggle} href="#">
-                    Login
+                    Ingresar
                 </NavLink>
                 <Modal
                     isOpen={this.state.modal}
@@ -91,7 +91,7 @@ class LoginModal extends Component {
                     <ModalHeader
                         toggle={this.toggle}
                     >
-                    Login
+                    Ingresar
                     </ModalHeader>
 
                     <ModalBody>
@@ -108,19 +108,19 @@ class LoginModal extends Component {
                                 onChange={this.onChange}
                                 />
                                 
-                                <Label for="password">Name</Label>
+                                <Label for="password">Contraseña</Label>
                                 <Input
                                 type="password"
                                 name="password"
                                 id="password"
-                                placeholder="Password"
+                                placeholder="Contraseña"
                                 onChange={this.onChange}
                                 />
 
                                 <Button
                                     color="dark"
                                     style={{marginTop:'2em'}}>
-                                    Login
+                                    Ingresar
                                 </Button>
                             </FormGroup>
                         </Form>

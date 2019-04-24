@@ -20,9 +20,11 @@ import { clearErrors } from '../../actions/errorActions'
 class RegisterModal extends Component {
     state={
         modal: false,
-        name: '',
+        nombre: '',
         email: '',
+        telefono: 0,
         password: '',
+        tipo: 'vendedor',
         msg: null
     }
 
@@ -62,18 +64,20 @@ class RegisterModal extends Component {
     }
 
     onChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.name]: e.target.value })      
     }
 
     onSubmit = e => {
         e.preventDefault()
         
-        const { name, email, password } = this.state;
+        const { nombre, email, telefono, tipo, password } = this.state;
 
         // Create user object
         const  newUser = {
-            name, 
+            nombre, 
             email, 
+            telefono,
+            tipo,
             password
         }
 
@@ -86,7 +90,7 @@ class RegisterModal extends Component {
         return(
             <div>
                 <NavLink onClick={this.toggle} href="#">
-                    Register
+                    Registro
                 </NavLink>
                 <Modal
                     isOpen={this.state.modal}
@@ -95,19 +99,19 @@ class RegisterModal extends Component {
                     <ModalHeader
                         toggle={this.toggle}
                     >
-                    Register
+                    Registro
                     </ModalHeader>
 
                     <ModalBody>
                         { this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null }
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
-                                <Label for="name">Name</Label>
+                                <Label for="nombre">Nombre</Label>
                                 <Input
                                 type="text"
-                                name="name"
-                                id="name"
-                                placeholder="Name"
+                                name="nombre"
+                                id="nombre"
+                                placeholder="Nombre"
                                 className="mb-3"
                                 onChange={this.onChange}
                                 />
@@ -120,18 +124,39 @@ class RegisterModal extends Component {
                                 className="mb-3"
                                 onChange={this.onChange}
                                 />
-                                <Label for="password">Name</Label>
+                                <Label for="telefono">Teléfono</Label>
+                                <Input
+                                type="number"
+                                name="telefono"
+                                id="telefono"
+                                placeholder="Teléfono"
+                                className="mb-3"
+                                onChange={this.onChange}
+                                />
+                                <Label for="tipo">Tipo de Usuario</Label>
+                                <Input
+                                type="select"
+                                name="tipo"
+                                id="tipo"
+                                placeholder="Tipo de Usuario"
+                                className="mb-3"
+                                onChange={this.onChange}
+                                >
+                                    <option value="vendedor">Vendedor</option>
+                                    <option value="repartidor">Repartidor</option>
+                                </Input>
+                                <Label for="password">Contraseña</Label>
                                 <Input
                                 type="password"
                                 name="password"
                                 id="password"
-                                placeholder="Password"
+                                placeholder="Contraseña"
                                 onChange={this.onChange}
                                 />
                                 <Button
                                     color="dark"
                                     style={{marginTop:'2em'}}>
-                                    Register
+                                    Registrarse
                                 </Button>
                             </FormGroup>
                         </Form>

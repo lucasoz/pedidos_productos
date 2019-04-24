@@ -16,18 +16,18 @@ router.post('/', (req, res) => {
     
     //Simple validation
     if(!email || !password){
-        return res.status(400).json({msg: 'Please enter all fields'})
+        return res.status(400).json({msg: 'Por favor ingresa todos los campos'})
     }
 
     //Check for existing user
     User.findOne({email})
     .then(user =>{
-        if(!user) return res.status(400).json({msg: 'User Does not exists'})
+        if(!user) return res.status(400).json({msg: 'el usuario no existe'})
         
         // Validate password
         bcrypt.compare(password, user.password)
         .then(isMatch =>{
-            if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' })
+            if (!isMatch) return res.status(400).json({ msg: 'Credenciales inválidas' })
             jwt.sign(
                 { id: user.id },
                 config.get('jwtSecret'),
@@ -38,8 +38,11 @@ router.post('/', (req, res) => {
                         token,
                         user: {
                             id: user.id,
-                            name: user.name,
-                            email: user.email
+                            nombre: user.nombre,
+                            telefono: user.nombre,
+                            tipo: user.tipo,
+                            email: user.email,
+                            register_date: user.register_date
                         }
                     })
                 }
