@@ -32,12 +32,12 @@ class AppNavBar extends Component {
 
     render() {
         const { isAuthenticated, user } = this.props.auth
-        
+
         const authLinks = (
             <Fragment>
                 <NavItem>
                     <span className="navbar-text mr-3">
-                        <strong>{ user ? `Welcome ${user.name}` : '' }</strong>
+                        <strong>{ user ? `Bienvenido ${user.nombre}` : '' }</strong>
                     </span>
                 </NavItem>
                 <NavItem>
@@ -62,7 +62,7 @@ class AppNavBar extends Component {
                 <Navbar color="dark" dark expand="sm" className="mb-5">
                     <Container>
                         <NavbarBrand href="/">
-                            ShoppingList
+                            Pedidos productos
                         </NavbarBrand>
                         <NavbarToggler onClick={this.toogle} />
                         <Collapse isOpen={this.state.isOpen} navbar>

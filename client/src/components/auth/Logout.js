@@ -13,7 +13,7 @@ class Logout extends Component {
         return (
             <Fragment>
                 <NavLink onClick={this.props.logout} href="#">
-                    Logout
+                    Salir
                 </NavLink>
             </Fragment>
         );

@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcryptjs')
 const config = require('config')
 const jwt = require('jsonwebtoken')
+const sgMail = require('@sendgrid/mail');
+const { bienvenida } = require('../../email/sendEmail')
 
 // Item Model
 const User = require('../../models/User');
@@ -11,22 +13,24 @@ const User = require('../../models/User');
 // @desc    Register new user
 // @access  Public
 router.post('/', (req, res) => {
-    const { name, email, password } = req.body;
+    const { nombre, email, telefono, tipo, password } = req.body;
     
     //Simple validation
-    if(!name || !email || !password){
-        return res.status(400).json({msg: 'Please enter all fields'})
+    if(!nombre || !email || !password || !telefono || !tipo){
+        return res.status(400).json({msg: 'Por favor ingresa todos los campos'})
     }
 
     //Check for existing user
     User.findOne({email})
     .then(user =>{
         if(user){
-            return res.status(400).json({msg: 'User already exists'})
+            return res.status(400).json({msg: 'Este correo ya ha sido tomado'})
         }
         const newUser = new User({
-            name,
+            nombre,
             email,
+            telefono,
+            tipo,
             password
         })
 
@@ -43,12 +47,17 @@ router.post('/', (req, res) => {
                         { expiresIn: 36000 }, 
                         (err, token) => {
                             if(err) throw err
+                            // Enviar correo de bienvenida
+                            bienvenida(user.email, user.nombre, user.tipo)
                             res.json({
                                 token,
                                 user: {
                                     id: user.id,
-                                    name: user.name,
-                                    email: user.email
+                                    nombre: user.nombre,
+                                    telefono: user.nombre,
+                                    tipo: user.tipo,
+                                    email: user.email,
+                                    register_date: user.register_date
                                 }
                             })
                         }
