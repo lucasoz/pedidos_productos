@@ -15,9 +15,13 @@ import _ from 'lodash'
 class Pedido extends Component {
 
     render() {
-        const { usuario, isAuthenticated, pedidos, entregara, entregue } = this.props       
+        const { usuario, isAuthenticated, pedidos, entregara, entregue } = this.props    
+
+        const ganancias = _.size(_.filter(pedidos, {estado : 'entregado'}))*2000
+        
         return (
             <div>
+                {isAuthenticated && usuario.tipo === "repartidor" && (<h2>Ganancias: ${ganancias}</h2>)}
                 {!isAuthenticated && (<h2>Por favor ingresa al sistema para registrar pedidos o hacer entregas</h2>)}
                 {isAuthenticated && usuario.tipo === "vendedor" && <PedidoModal/>}
                 { isAuthenticated && pedidos.map(pedido => (
@@ -30,7 +34,8 @@ class Pedido extends Component {
                             Teléfono Celular: {pedido.telefonoCelular} <br/>
                             Dirección: {pedido.direccionCliente} <br/>
                             Indicaciones: {pedido.consejo} <br/>
-                            Productos a entregar: {pedido.descripcionEntrega}                               
+                            Productos a entregar: {pedido.descripcionEntrega} <br/>
+                            Publicado el: {pedido.fechaRegistro}                  
                             </CardText>
                             {/* {pedido.estado === "para entregar" && usuario.tipo === "vendedor" && <Button color="danger" onClick={() => console.log("click" + pedido._id)}>Eliminar</Button> } */}
                             {pedido.estado === "para entregar" && usuario.tipo === "repartidor" && <Button color="warning" onClick={() => entregara(pedido)}>Lo voy a entregar</Button> }
@@ -40,7 +45,7 @@ class Pedido extends Component {
                         <br />
                     </Fragment>
                 ))}
-                { _.isEmpty(pedidos) && (<h2>En este momento no hay pedidos disponibles</h2>)}
+                { _.isEmpty(pedidos) && isAuthenticated && (<h2>En este momento no hay pedidos disponibles</h2>)}
             </div>
                       
         )

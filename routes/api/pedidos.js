@@ -9,7 +9,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 // @desc    Get All Pedidos
 // @access  Public
 router.get('/', auth, (req, res) => {
-    Pedido.find({$or : [{estado: 'para entregar'}, {$and: [{estado: 'en proceso'}, {repartidor : req.user.id}]}]})
+    Pedido.find({$or : [{estado: 'para entregar'}, {repartidor : req.user.id}]})
     .sort({ date: -1 })
     .then(items => res.json(items));
 });
