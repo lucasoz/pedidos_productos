@@ -8,7 +8,7 @@ import store from './store'
 import ItemModal from './components/ItemModal' 
 import { Container } from 'reactstrap'
 import { loadUser } from './actions/authActions'
-
+import Pedido from './components/pedido/Pedido'
 
 class App extends Component {
   componentDidMount() {
@@ -21,6 +21,7 @@ class App extends Component {
       <div className="App">
         <AppNavBar/>
         <Container>
+          <Pedido/>
           <ItemModal/>
           <ShoppingList/>
         </Container>

@@ -10,17 +10,19 @@ import {
     REGISTER_FAIL
 } from './types'
 import {clearErrors, returnErrors} from './errorActions'
+import { getPedidos } from './pedidoActions'
 
 // Check token & load user
 export const loadUser = () => (dispatch, getState) => {
     // User loading 
     dispatch({ type: USER_LOADING })
-
     axios.get('/api/auth/user', tokenConfig(getState))
-    .then(res => dispatch({
+    .then(res => {
+    dispatch(getPedidos())
+    dispatch({
         type: USER_LOADED,
         payload: res.data
-    }))
+    })})
     .catch(err => {
         dispatch(returnErrors(err.response.data, err.response.status))
         dispatch({
@@ -65,10 +67,12 @@ export const login = ({ email, password }) => dispatch => {
     // Request body
     const body = JSON.stringify({ email, password })
     axios.post('/api/auth', body, config)
-    .then(res => dispatch({
+    .then(res => {
+    dispatch(getPedidos())    
+    dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
-    }))
+    })})
     .catch(err => {
         dispatch(returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'))
         dispatch({
