@@ -35,7 +35,7 @@ class PedidoModal extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { error, isAuthenticated } = this.props;
+        const { error } = this.props;
         if(error !== prevProps.error){
             // Check for register error
             if(error.id === 'ADD_PEDIDO_FAIL'){
@@ -181,7 +181,6 @@ class PedidoModal extends Component {
 }
 
 const mapStateToProps = state => ({
-    item: state.item,
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error
 })

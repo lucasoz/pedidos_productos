@@ -9,7 +9,7 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL
 } from './types'
-import {clearErrors, returnErrors} from './errorActions'
+import { returnErrors } from './errorActions'
 import { getPedidos } from './pedidoActions'
 
 // Check token & load user
@@ -96,7 +96,6 @@ export const logout = () => {
 export const tokenConfig = getState => {
     // Get token from localStorage
     const token = getState().auth.token
-    console.log(token);
     // Headers
     const config = {
         headers: {

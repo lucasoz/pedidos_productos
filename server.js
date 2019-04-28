@@ -20,7 +20,6 @@ mongoose.connect(db, {
 
 
 // Use Routes
-app.use('/api/items', require('./routes/api/items'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/pedidos', require('./routes/api/pedidos'));

@@ -6,7 +6,7 @@ import { returnErrors } from './errorActions'
 export const getPedidos = () => (dispatch,getState) => { 
     const tipo = getState().auth.user.tipo
     dispatch(setPedidosLoading())
-    console.log(tipo)    
+   
     tipo === "vendedor" ? 
     axios.get('/api/pedidos/vendedor', tokenConfig(getState))
     .then(res => 
@@ -50,12 +50,9 @@ export const deletePedido = id => (dispatch, getState) => {
 }
 
 export const entregara = pedido => (dispatch, getState) => {
-    console.log("entregará front");
-    console.log(getState());
     const pedidoEntrega = {id: pedido._id, estado: 'en proceso', repartidor: getState().auth.user.id}
     axios.patch(`/api/pedidos`, pedidoEntrega ,tokenConfig(getState))
     .then(res => {
-        console.log(res.data);
         dispatch({
             type: UPDATE_PEDIDO,
             payload: res.data
@@ -69,7 +66,6 @@ export const entregue = pedido => (dispatch, getState) => {
     const pedidoEntrega = {id: pedido._id, estado: 'entregado'}
     axios.patch(`/api/pedidos`, pedidoEntrega ,tokenConfig(getState))
     .then(res => {
-        console.log(res.data);
         dispatch({
             type: UPDATE_PEDIDO,
             payload: res.data

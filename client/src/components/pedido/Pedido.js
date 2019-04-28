@@ -5,24 +5,20 @@ import PedidoModal from './PedidoModal'
 import { 
     Card,
     CardBody,
-    CardImg,
     CardTitle,
     CardSubtitle,
     Button,
     CardText,
-    CardDeck
 } from 'reactstrap'
 import _ from 'lodash'
 
 class Pedido extends Component {
 
     render() {
-        const { usuario, isAuthenticated, pedidos, entregara, entregue } = this.props
-
-        console.log(pedidos);        
+        const { usuario, isAuthenticated, pedidos, entregara, entregue } = this.props       
         return (
             <div>
-                <p>{isAuthenticated ? usuario.tipo : "sin autenticar"}</p> 
+                {!isAuthenticated && (<h2>Por favor ingresa al sistema para registrar pedidos o hacer entregas</h2>)}
                 {isAuthenticated && usuario.tipo === "vendedor" && <PedidoModal/>}
                 { isAuthenticated && pedidos.map(pedido => (
                     <Fragment key={pedido._id}>
@@ -43,9 +39,8 @@ class Pedido extends Component {
                         </Card>
                         <br />
                     </Fragment>
-                    
                 ))}
-  
+                { _.isEmpty(pedidos) && (<h2>En este momento no hay pedidos disponibles</h2>)}
             </div>
                       
         )

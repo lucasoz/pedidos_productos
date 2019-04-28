@@ -60,11 +60,9 @@ router.delete('/:id', auth, (req, res) => {
 // @desc    Create an Item
 // @access  Private
 router.patch('/', auth, (req, res) => {
-    console.log("patch: ", req.body);
     Pedido.findByIdAndUpdate(req.body.id, req.body)
     .then(pedido => {
         Pedido.findById(pedido._id).then(pedidoAct => {
-            console.log(pedidoAct);
             res.json(pedidoAct)
         })
         .catch(err => res.status(404).json({success: false}))
