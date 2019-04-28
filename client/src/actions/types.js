@@ -18,6 +18,7 @@ export const GET_PEDIDOS ='GET_PEDIDOS';
 export const ADD_PEDIDO = 'ADD_PEDIDO';
 export const DELETE_PEDIDO = 'DELETE_PEDIDO';
 export const PEDIDOS_LOADING = 'PEDIDOS_LOADING';
+export const UPDATE_PEDIDO = 'UPDATE_PEDIDO';
     
 
 

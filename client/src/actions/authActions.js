@@ -18,11 +18,12 @@ export const loadUser = () => (dispatch, getState) => {
     dispatch({ type: USER_LOADING })
     axios.get('/api/auth/user', tokenConfig(getState))
     .then(res => {
-    dispatch(getPedidos())
     dispatch({
         type: USER_LOADED,
         payload: res.data
-    })})
+    })
+    dispatch(getPedidos())
+    })
     .catch(err => {
         dispatch(returnErrors(err.response.data, err.response.status))
         dispatch({
@@ -68,11 +69,13 @@ export const login = ({ email, password }) => dispatch => {
     const body = JSON.stringify({ email, password })
     axios.post('/api/auth', body, config)
     .then(res => {
-    dispatch(getPedidos())    
+        
     dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
-    })})
+    })
+    dispatch(getPedidos())  
+    })
     .catch(err => {
         dispatch(returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'))
         dispatch({
@@ -93,6 +96,7 @@ export const logout = () => {
 export const tokenConfig = getState => {
     // Get token from localStorage
     const token = getState().auth.token
+    console.log(token);
     // Headers
     const config = {
         headers: {

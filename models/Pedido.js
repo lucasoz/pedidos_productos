@@ -24,7 +24,8 @@ const PedidoSchema = new Schema({
     },
     estado: {
         type: String,
-        default: 'para entregar'
+        default: 'para entregar',
+        enum: {values: ['para entregar', 'en proceso', 'entregado']}
     },
     descripcionEntrega: {
         type: String,

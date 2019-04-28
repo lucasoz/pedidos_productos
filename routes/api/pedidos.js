@@ -4,12 +4,12 @@ const auth = require('../../middleware/auth')
 
 // Item Model
 const Pedido = require('../../models/Pedido');
-
+const ObjectId = require('mongoose').Types.ObjectId; 
 // @route   GET api/pedidos
 // @desc    Get All Pedidos
 // @access  Public
-router.get('/', (req, res) => {
-    Pedido.find({})
+router.get('/', auth, (req, res) => {
+    Pedido.find({$or : [{estado: 'para entregar'}, {$and: [{estado: 'en proceso'}, {repartidor : req.user.id}]}]})
     .sort({ date: -1 })
     .then(items => res.json(items));
 });
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 // @route   GET api/pedidos/vendedor/
 // @desc    Obtener los pedidos de un vendedor
 // @access  Private
-router.get('/vendedor/', auth, (req, res) => {
+router.get('/vendedor', auth, (req, res) => {
     Pedido.find({vendedor: req.user.id})
     .sort({ date: -1 })
     .then(items => res.json(items));
@@ -54,6 +54,25 @@ router.delete('/:id', auth, (req, res) => {
     Item.findByIdAndDelete(req.params.id)
     .then(() => res.json({ success: true}))
     .catch(err => res.status(404).json({success: false}));
+});
+
+// @route   DELETE api/items/:id
+// @desc    Create an Item
+// @access  Private
+router.patch('/', auth, (req, res) => {
+    console.log("patch: ", req.body);
+    Pedido.findByIdAndUpdate(req.body.id, req.body)
+    .then(pedido => {
+        Pedido.findById(pedido._id).then(pedidoAct => {
+            console.log(pedidoAct);
+            res.json(pedidoAct)
+        })
+        .catch(err => res.status(404).json({success: false}))
+        })
+    .catch(err => res.status(404).json({success: false}))
+    // Item.findByIdAndDelete(req.params.id)
+    // .then(() => res.json({ success: true}))
+    // .catch(err => res.status(404).json({success: false}));
 });
 
 module.exports = router;

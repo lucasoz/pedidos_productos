@@ -1,4 +1,4 @@
-import { GET_PEDIDOS, ADD_PEDIDO , DELETE_PEDIDO, PEDIDOS_LOADING } from '../actions/types'
+import { GET_PEDIDOS, ADD_PEDIDO , DELETE_PEDIDO, PEDIDOS_LOADING, UPDATE_PEDIDO } from '../actions/types'
 
 const initialState = {
     pedidos: [],
@@ -27,6 +27,11 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 loading: true
+            }
+        case UPDATE_PEDIDO:
+            return {
+                ...state,
+                pedidos: [action.payload, ...state.pedidos.filter(pedido => pedido._id !== action.payload._id)]
             }
         default:
             return state;
